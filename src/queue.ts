@@ -1,7 +1,8 @@
 import { Job, Queue, RedisConnection } from 'bullmq';
 import { getConnection, ConnectionOptions } from './connection';
+import {EventMessage} from '@map-colonies/export-interfaces';
 
-export type QueueMessage = { name: string, data: Record<string, unknown> };
+export type QueueMessage = { name: string, data: EventMessage };
 export class QueueManager {
     private readonly queue: Queue;
     private readonly topic: string;
