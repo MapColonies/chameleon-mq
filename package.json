@@ -62,7 +62,7 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@map-colonies/export-interfaces": "file:../export-interfaces/map-colonies-export-interfaces-1.3.0.tgz",
+    "@map-colonies/export-interfaces": "file:../export-interfaces/map-colonies-export-interfaces-1.4.0.tgz",
     "bullmq": "^5.7.8"
   }
 }

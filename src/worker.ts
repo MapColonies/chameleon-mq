@@ -9,8 +9,22 @@ export class WorkerManager {
     this.worker = new Worker(topic, workerJobHandler, { connection: this.connectionOptions, autorun: false });
   }
 
+  public onFailed(retryDealyMs: number): void {
+    this.worker.on('failed', async (job: Job<any, any, string> | undefined) => {
+      if (job?.isFailed()) {
+        setTimeout(async ()=> {
+          console.log(`found failed job: ${job?.id} trying to retry.`);
+          await job?.retry('failed');
+        },
+        retryDealyMs)
+      }
+    })
+  }
   public async subscribe(): Promise<void> {
     try {
+      // this.worker.on('failed', (job)=>{
+      //   console.log("FAILED JOB!", job)
+      // })
       await this.worker.run();
     }
     catch (error) {
@@ -29,4 +43,4 @@ export class WorkerManager {
   }
 }
 
-export {Job, Queue}
+export { Job, Queue }
